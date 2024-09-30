@@ -1,40 +1,34 @@
 public class Main {
     public static void main(String[] args) {
-        // Create a library
+        
         Library library = new Library();
 
-        // Add books
-        library.addBook(new Book("For One More Day", "Mitch Albom", "11010"));
-        library.addBook(new Book("Five People You Met in Heaven", "Mitch Albom", "11900"));
-        library.addBook(new Book("Tuesday with Morrie", "Mitch Albom", "11500"));
-
-        // Create users
-        User alice = new User("Jessie", 25);
-        User bob = new User("Ayuni", 31);
         
-        // Add users to the library
-        library.addUser(Jessie);
-        library.addUser(Ayuni);
+        Book book1 = new Book("For One More Day", "Mitch Albom", "11000");
+        Book book2 = new Book("Tuesday with Morrie", "Mitch Albom", "11500");
+        library.addBook(book1);
+        library.addBook(book2);
+ 
+        User user1 = new User("Jessie", 27);
+        User user2 = new User("Ayuni", 20);
+        library.addUser(user1);
+        library.addUser(user2);
+        
+        library.borrowBook(user1, "For One More Day");
+        library.borrowBook(user2, "Tuesday with Morrie");
 
-        // Borrow books
-        library.borrowBook(Jessie, "For One More Day");
-        library.borrowBook(Ayuni, "Tuesday with Morrie");
-
-        // Check due dates
-        alice.checkDueDates();
-        bob.checkDueDates();
-
-        // Simulate overdue check
-        alice.checkOverdueBooks();
-        bob.checkOverdueBooks();
-
-        // List available books
-        System.out.println("\n----------Available Books:----------");
+        System.out.println("\n--- Available Books ---");
         library.listAvailableBooks();
 
-        // Print borrowed books for all users
-        System.out.println("\n----------Borrowed Books:----------");
+        System.out.println("\n--- Borrowed Books ---");
         library.getBorrowedBooksForAllUsers();
+
+        System.out.println("\n--- Due Dates ---");
+        user1.checkDueDates();
+        user2.checkDueDates();
+
+        System.out.println("\n--- Overdue Books ---");
+        user1.checkOverdueBooks();
+        user2.checkOverdueBooks();
     }
 }
-

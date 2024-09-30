@@ -4,18 +4,22 @@ public class Book {
     private String isbn;
     private boolean isAvailable;
 
+    
     public Book(String title, String author, String isbn) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
-        this.isAvailable = true;  // By default, the book is available
+        this.isAvailable = true; //available by default
     }
 
+   
     public void printBookInfo() {
-        System.out.println("Title: " + title);
-        System.out.println("Author: " + author);
-        System.out.println("ISBN: " + isbn);
-        System.out.println("Available: " + isAvailable);
+        System.out.println("Title: " + title + ", Author: " + author + ", ISBN: " + isbn + ", Available: " + isAvailable);
+    }
+
+    
+    public String getTitle() {
+        return title;
     }
 
     public boolean isAvailable() {
@@ -24,9 +28,5 @@ public class Book {
 
     public void setAvailable(boolean isAvailable) {
         this.isAvailable = isAvailable;
-    }
-
-    public String getTitle() {
-        return title;
     }
 }

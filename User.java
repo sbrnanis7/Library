@@ -1,22 +1,21 @@
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashMap; //to learn deeper
+import java.util.Map; //same
 
 public class User {
     private String name;
     private int age;
-    private ArrayList<String> borrowedBooks;
-    private Map<String, LocalDate> borrowedBooksDueDates;
+    private ArrayList<String> borrowedBooks = new ArrayList<>();
+    private Map<String, LocalDate> borrowedBooksDueDates = new HashMap<>();
 
+    
     public User(String name, int age) {
         this.name = name;
         this.age = age;
-        this.borrowedBooks = new ArrayList<>();
-        this.borrowedBooksDueDates = new HashMap<>();
     }
 
+    
     public String getName() {
         return name;
     }
@@ -37,16 +36,16 @@ public class User {
         borrowedBooks.add(bookTitle);
         LocalDate dueDate = LocalDate.now().plusDays(14);
         borrowedBooksDueDates.put(bookTitle, dueDate);
-        System.out.println("Book '" + bookTitle + "' borrowed. Due date: " + dueDate.format(DateTimeFormatter.ofPattern("MMM dd, yyyy")));
+        System.out.println("Book borrowed: " + bookTitle + ". Due date: " + dueDate);
     }
 
     public void returnBook(String bookTitle) {
         if (borrowedBooks.contains(bookTitle)) {
             borrowedBooks.remove(bookTitle);
             borrowedBooksDueDates.remove(bookTitle);
-            System.out.println("Book '" + bookTitle + "' has been returned.");
+            System.out.println("Successfully returned the book: " + bookTitle);
         } else {
-            System.out.println("Book '" + bookTitle + "' is not found in the borrowed list.");
+            System.out.println("Book not found in borrowed list: " + bookTitle);
         }
     }
 
@@ -54,21 +53,24 @@ public class User {
         System.out.println("Borrowed Books: " + borrowedBooks);
     }
 
+
     public void checkDueDates() {
         for (Map.Entry<String, LocalDate> entry : borrowedBooksDueDates.entrySet()) {
-            System.out.println("Book: " + entry.getKey() + ", Due Date: " + entry.getValue().format(DateTimeFormatter.ofPattern("MMM dd, yyyy")));
+            System.out.println("Book: " + entry.getKey() + ", Due Date: " + entry.getValue());
         }
     }
-
+    
     public void checkOverdueBooks() {
         LocalDate today = LocalDate.now();
         for (Map.Entry<String, LocalDate> entry : borrowedBooksDueDates.entrySet()) {
-            String bookTitle = entry.getKey();
             LocalDate dueDate = entry.getValue();
-            String result = today.isAfter(dueDate) ? "Overdue by " + (today.toEpochDay() - dueDate.toEpochDay()) + " days" : "Not overdue";
-            System.out.println("Book: " + bookTitle + ", " + result);
+            String bookTitle = entry.getKey();
+            long daysOverdue = today.isAfter(dueDate) ? today.toEpochDay() - dueDate.toEpochDay() : 0;
+
+            String message = (daysOverdue > 0) 
+                ? "Book: " + bookTitle + " is overdue by " + daysOverdue + " days"
+                : "Book: " + bookTitle + " is not overdue";
+            System.out.println(message);
         }
     }
 }
-
-
